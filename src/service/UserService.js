@@ -10,7 +10,6 @@ class UserService {
     if (!email || !senha) throw new StructuredError('All fields must be filled', 400);
     // encripta senha recebida e compara com a senha do banco
     const userExists = await db.User.findOne({ where: { email } });
-    console.log(userExists);
     if (!userExists) throw new StructuredError('Incorrect email or password', 401);
     const passwordMatch = await bcrypt.compare(senha, userExists.senha);
     if (!passwordMatch) throw new StructuredError('Incorrect email or password', 401);
@@ -39,7 +38,7 @@ class UserService {
     const hash = bcrypt.hashSync(senha, salt);
     await db.User.create({ nome, telefone, email, senha: hash });
     // gera token
-    const token = tokenManager.generateToken({ nome, email  });
+    const token = tokenManager.generateToken({ nome, email });
     return token;
   };  
 }
