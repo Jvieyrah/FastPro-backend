@@ -11,15 +11,15 @@ class PokemonService {
   importPokemons = async (offset) => {
     try {
       const { data } = await axios(`${this.url}/pokemon?limit=10&offset=${offset}`);
-      return data;
+      const pokemons = data.results.map((pokemon) => ({
+        name: pokemon.name,
+        id: pokemon.url.slice(25).replace('/', ''),
+      }));
+      return pokemons;
+
     } catch (error) {
       throw new StructuredError(error.message, 500);
     }
-    // const pokemons = results.map((pokemon) => ({
-    //   name: pokemon.name,
-    //   id: pokemon.url.slice(25).replace('/', ''),
-    //  }));
-    // return results;
   }
 }
 
