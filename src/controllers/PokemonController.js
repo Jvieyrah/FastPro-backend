@@ -11,6 +11,12 @@ class PokemonController {
     const pokemons = await this.pokemonService.importPokemons(offset);
     return res.status(200).json({ pokemons });
   }
+
+  async getPokemonById(req, res) {
+    const { id } = req.params;
+    const pokemon = await this.pokemonService.getPokemonById(id);
+    return res.status(200).json({ pokemon });
+  }
 }
 
 module.exports = PokemonController;

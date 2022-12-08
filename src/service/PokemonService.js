@@ -9,6 +9,13 @@ class PokemonService {
       .catch((error) => { throw new StructuredError(error.message, 500) });
     return pokemons;
   }
+
+  async getPokemonById(id) {
+    const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+      .then((response) => response.data)
+      .catch((error) => { throw new StructuredError(error.message, 500) });
+    return pokemon;
+  }
 }
 
 module.exports = PokemonService;
