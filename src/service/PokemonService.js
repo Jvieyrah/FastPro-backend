@@ -12,8 +12,8 @@ class PokemonService {
     try {
       const response = await axios
         .get(`${this.url}/pokemon?limit=10&offset=${offset}`)
-        .then((response) => {
-          const { results } = response.data.results
+        .then((res) => {
+          const { results } = res.data;
           return results;
         }
         )
