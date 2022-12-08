@@ -4,12 +4,7 @@ const StructuredError = require('../errors/StructuredError');
 const UserService = require('./UserService');
 
 class PokemonService {
-  importPokemons = async (offset, token) => {
-    const userService = new UserService();
-    const isUser = userService.validateLogin(token);
-    if (isUser) {
-      return isUser;
-    }
+  importPokemons = async (offset) => {
     if (!isUser) throw new StructuredError('User not found', 404);
     const response = await getPokemons.get(`/pokemon?limit=10&offset=${offset}`);
     const { results } = response;

@@ -8,8 +8,7 @@ class PokemonController {
 
   async importPokemons(req, res) {
     const { offset } = req.body;
-    const { Authorization } = req.headers;
-    const pokemons = await this.pokemonService.importPokemons(offset, Authorization);
+    const pokemons = await this.pokemonService.importPokemons(offset);
     return res.status(200).send({ pokemons });
   }
 }
