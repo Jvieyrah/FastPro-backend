@@ -3,7 +3,7 @@ const tokenManager = require('../helpers/tokenManager.js');
 const StructuredError = require('../errors/StructuredError');
 const UserService = require('./UserService');
 
-class UserService {
+class PokemonService {
   importPokemons = async (offset, token) => {
     const isUser = UserService.validateLogin(token);
     if (!isUser) throw new StructuredError('User not found', 404);
@@ -17,4 +17,4 @@ class UserService {
   }
 }
 
-module.exports = UserService;
+module.exports = PokemonService;
