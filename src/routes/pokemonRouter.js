@@ -8,7 +8,7 @@ const pokemonService = new PokemonService();
 
 const pokeCI = new PokemonController(pokemonService);
 
-pokemonRouter.get('/pokemons',
+pokemonRouter.get('/',
   authCheck,
   (req, res) => pokeCI.importPokemons(req, res));
 
