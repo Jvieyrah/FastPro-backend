@@ -5,7 +5,6 @@ const UserService = require('./UserService');
 
 class PokemonService {
   importPokemons = async (offset) => {
-    if (!isUser) throw new StructuredError('User not found', 404);
     const response = await getPokemons.get(`/pokemon?limit=10&offset=${offset}`);
     const { results } = response;
     // const pokemons = results.map((pokemon) => ({
