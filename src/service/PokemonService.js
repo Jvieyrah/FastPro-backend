@@ -10,12 +10,14 @@ class PokemonService {
   }
   importPokemons = async (offset) => {
     try {
-      const { data } = await axios(`https://pokeapi.co/api/v2/pokemon?limit=10&offset=${offset}`);
-      const pokemons = data.results.map((pokemon) => ({
-        name: pokemon.name,
-        id: pokemon.url.slice(25).replace('/', ''),
-      }));
-      return data;
+      await axios(`https://pokeapi.co/api/v2/pokemon?limit=10&offset=${offset}`)
+        .then((response) => {
+          return response.data.results;
+        });
+      // const pokemons = data.results.map((pokemon) => ({
+      //   name: pokemon.name,
+      //   id: pokemon.url.slice(25).replace('/', ''),
+      // }));   
 
     } catch (error) {
       throw new StructuredError(error.message, 500);
