@@ -8,13 +8,8 @@ const pokemonService = new PokemonService();
 
 const pokeCI = new PokemonController(pokemonService);
 
-//crie uma rota com o método GET que receba um offset como query string e um token
-//e retorne uma lista de pokemons
-pokemonRouter.get('/pokemons?offset=:offset',
-  authCheck,
-  (req, res) => pokeCI.importPokemons(req, res));
 pokemonRouter.get('/pokemons',
   authCheck,
-  (req, res) => response.status(200).send({ message: 'Hello User' }));
+  (req, res) => pokeCI.importPokemons(req, res));
 
 module.exports = pokemonRouter;
