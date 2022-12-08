@@ -1,16 +1,11 @@
 const getPokemons = require('../axios/config');
-const tokenManager = require('../helpers/tokenManager.js');
 const StructuredError = require('../errors/StructuredError');
-const UserService = require('./UserService');
 const axios = require('axios');
 
 class PokemonService {
-  constructor() {
-    this.url = 'https://pokeapi.co/api/v2';
-  }
   importPokemons = async (offset) => {
     try {
-      await axios(`https://pokeapi.co/api/v2/pokemon?limit=10&offset=${offset}`)
+      await axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=20')
         .then((response) => {
           return response.data.results;
         });
