@@ -9,14 +9,22 @@ class PokemonService {
     this.url = 'https://pokeapi.co/api/v2';
   }
   importPokemons = async (offset) => {
-    // const response = await axios
-    //   .get(`${this.url}/pokemon?limit=10&offset=${offset}`);
-    // const { results } = response;
+    try {
+      const response = await axios
+        .get(`${this.url}/pokemon?limit=10&offset=${offset}`)
+        .then((response) => {
+          const { results } = response.data.results
+          return results;
+        }
+        )
+    } catch (error) {
+      throw new StructuredError('Error importing pokemons', 500);
+    }
     // const pokemons = results.map((pokemon) => ({
     //   name: pokemon.name,
     //   id: pokemon.url.slice(25).replace('/', ''),
-    // }));
-    return ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+    //  }));
+    // return results;
   }
 }
 
