@@ -15,7 +15,7 @@ class PokemonService {
         name: pokemon.name,
         id: pokemon.url.slice(25).replace('/', ''),
       }));
-      return pokemons;
+      return data;
 
     } catch (error) {
       throw new StructuredError(error.message, 500);
