@@ -1,11 +1,11 @@
 const getPokemons = require('../axios/config');
 const tokenManager = require('../helpers/tokenManager.js');
 const StructuredError = require('../errors/StructuredError');
-const PokemonService = require('../service/PokemonService');
+const UserService = require('./UserService');
 
 class UserService {
   importPokemons = async (offset, token) => {
-    const isUser = PokemonService.validateLogin(token);
+    const isUser = UserService.validateLogin(token);
     if (!isUser) throw new StructuredError('User not found', 404);
     const response = await getPokemons.get(`/pokemon?limit=10&offset=${offset}`);
     const { results } = response.data;
