@@ -1,4 +1,6 @@
-const StructuredError = require( '../errors/StructuredError');
+const StructuredError = require('../errors/StructuredError');
+const passwordError = `Password must have at least 8 characters, 
+containing at least one uppercase, one number and a special character`;
 
 const userCheck = (req, res, next) => {
   const { nome, telefone, email, senha } = req.body;
@@ -11,11 +13,12 @@ const userCheck = (req, res, next) => {
   if (!emailRegex.test(email))
     throw new StructuredError('email must be a valid e-mail format', 400);
   if (senha.length < 8)
-    throw new StructuredError('Password must have at least 8 characters', 400);
+    throw new StructuredError(passwordError, 400);
   //  a senha deve ter pelo menos um número e uma letra maiúscula e um caractere especial
+  // Password must have at least one uppercase letter and one number
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/;
   if (!passwordRegex.test(senha))
-    throw new StructuredError('Password must have at least one uppercase letter and one number', 400);
+    throw new StructuredError(passwordError, 400);
   next();
 }
 

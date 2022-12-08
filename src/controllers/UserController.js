@@ -1,7 +1,7 @@
 const UserService = require('../service/UserService');
 
- class UserController {
-  userService= new UserService();
+class UserController {
+  userService = new UserService();
   constructor(userService) {
     this.userService = userService;
   }
