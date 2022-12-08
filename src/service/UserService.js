@@ -6,10 +6,11 @@ const StructuredError = require('../errors/StructuredError');
 class UserService {
   makelogin = async (userPassword) => {
     // valida se todos os campos estão preenchidos
-    const { email , senha } = userPassword;
+    const { email, senha } = userPassword;
     if (!email || !senha) throw new StructuredError('All fields must be filled', 400);
     // encripta senha recebida e compara com a senha do banco
     const userExists = await db.User.findOne({ where: { email } });
+    console.log("testre " + userExists);
     if (!userExists) throw new StructuredError('Incorrect email or password', 401);
     const passwordMatch = await bcrypt.compare(senha, userExists.senha);
     if (!passwordMatch) throw new StructuredError('Incorrect email or password', 401);
@@ -21,14 +22,17 @@ class UserService {
 
   validateLogin = async (token) => {
     const { email } = tokenManager.verifyToken(token);
-    const user = await  db.User.findOne({ where: { email
-    }, attributes: { exclude: ['senha', 'id', 'telefone'] } });
-    if (!user) throw new StructuredError('User not found', 404);   
+    const user = await db.User.findOne({
+      where: {
+        email
+      }, attributes: { exclude: ['senha', 'id', 'telefone'] }
+    });
+    if (!user) throw new StructuredError('User not found', 404);
     return user;
   };
 
-  createUser = async (user) => {  
-    const { nome, telefone, email, senha } = user; 
+  createUser = async (user) => {
+    const { nome, telefone, email, senha } = user;
     // encripta senha recebida
     const salt = bcrypt.genSaltSync(10);
     // verifica se o usuário já existe
@@ -40,7 +44,7 @@ class UserService {
     // gera token
     const token = tokenManager.generateToken({ nome, email });
     return token;
-  };  
+  };
 }
 
 module.exports = UserService;
