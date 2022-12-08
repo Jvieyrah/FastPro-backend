@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.get('/helloAPI', (_req, res) => res.status(418).send({ message: 'Hello User' }));
 app.use('/', userRouter);
-app.use('/', pokemonRouter);
+app.use('/pokemons', pokemonRouter);
 app.use(errorMiddleware);
 
 module.exports = app;
