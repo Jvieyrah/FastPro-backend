@@ -18,7 +18,7 @@ class PokemonService {
         }
         )
     } catch (error) {
-      throw new StructuredError('Error importing pokemons', 500);
+      throw new StructuredError(error.message, 500);
     }
     // const pokemons = results.map((pokemon) => ({
     //   name: pokemon.name,
