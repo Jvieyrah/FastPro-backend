@@ -13,5 +13,8 @@ const pokeCI = new PokemonController(pokemonService);
 pokemonRouter.get('/pokemons?offset=:offset',
   authCheck,
   (req, res) => pokeCI.importPokemons(req, res));
+pokemonRouter.get('/pokemons',
+  authCheck,
+  (req, res) => response.status(200).send({ message: 'Hello User' }));
 
 module.exports = pokemonRouter;
