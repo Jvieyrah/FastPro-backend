@@ -2,7 +2,7 @@ const getPokemons = require('../axios/config');
 const tokenManager = require('../helpers/tokenManager.js');
 const StructuredError = require('../errors/StructuredError');
 const UserService = require('./UserService');
-const axios = require('axios').default;
+const axios = require('axios');
 
 class PokemonService {
   constructor() {
@@ -10,13 +10,8 @@ class PokemonService {
   }
   importPokemons = async (offset) => {
     try {
-      const response = await axios
-        .get(`${this.url}/pokemon?limit=10&offset=${offset}`)
-        .then((res) => {
-          const { results } = res.data;
-          return results;
-        }
-        )
+      const { data } = await axios(`${this.url}/pokemon?limit=10&offset=${offset}`);
+      return data;
     } catch (error) {
       throw new StructuredError(error.message, 500);
     }
